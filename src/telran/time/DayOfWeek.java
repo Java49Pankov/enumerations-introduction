@@ -23,7 +23,7 @@ public enum DayOfWeek implements DaysOperations {
 		} else {
 			int seqNumber = (ordinal() - days) % MAX_DAYS;
 			if (seqNumber < 0) {
-				seqNumber += MAX_DAYS;
+				seqNumber  += MAX_DAYS;
 			}
 			res = values()[seqNumber];
 		}
