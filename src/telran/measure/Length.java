@@ -1,26 +1,12 @@
 package telran.measure;
 
 public class Length implements Comparable<Length> {
-	private float amount;
-	private LengthUnit unit;
+	private final float amount;
+	private final LengthUnit unit;
 
 	public Length(float amount, LengthUnit unit) {
-		this.unit = unit;
 		this.amount = amount;
-	}
-
-	public LengthUnit getUnit() {
-		return unit;
-	}
-
-	public float getAmount() {
-		return amount;
-	}
-
-	@Override
-	public int compareTo(Length obj) {
-		return Float.compare(amount, obj.convert(unit).amount);
-
+		this.unit = unit;
 	}
 
 	@Override
@@ -28,12 +14,27 @@ public class Length implements Comparable<Length> {
 		return compareTo((Length) obj) == 0;
 	}
 
-	public String toString() {
-		return Float.toString(amount) + unit.toString();
+	@Override
+	public int compareTo(Length o) {
+		return Float.compare(amount, o.convert(unit).amount);
 	}
 
-	public Length convert(LengthUnit lengthUnit) {
-		return new Length(amount * unit.value / lengthUnit.value, lengthUnit);
+	public Length convert(LengthUnit unit) {
+		return new Length(amount * this.unit.getValue() / unit.getValue(), unit);
+	}
+
+	@Override
+	public String toString() {
+		String amountStr = Float.toString(amount);
+		return amountStr + unit.toString();
+	}
+
+	public float getAmount() {
+		return amount;
+	}
+
+	public LengthUnit getUnit() {
+		return unit;
 	}
 
 }
